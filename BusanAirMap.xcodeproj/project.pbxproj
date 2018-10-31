@@ -12,6 +12,8 @@
 		341683612189743A001FEAB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3416835F2189743A001FEAB1 /* Main.storyboard */; };
 		341683632189743C001FEAB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 341683622189743C001FEAB1 /* Assets.xcassets */; };
 		341683662189743C001FEAB1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 341683642189743C001FEAB1 /* LaunchScreen.storyboard */; };
+		3416836F2189744C001FEAB1 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3416836E2189744B001FEAB1 /* MapKit.framework */; };
+		3416837121898495001FEAB1 /* BusanAirData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3416837021898495001FEAB1 /* BusanAirData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		341683622189743C001FEAB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		341683652189743C001FEAB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		341683672189743C001FEAB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3416836E2189744B001FEAB1 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		3416837021898495001FEAB1 /* BusanAirData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusanAirData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3416836F2189744C001FEAB1 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +45,7 @@
 			children = (
 				3416835A2189743A001FEAB1 /* BusanAirMap */,
 				341683592189743A001FEAB1 /* Products */,
+				3416836D2189744B001FEAB1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,11 +63,20 @@
 				3416835B2189743A001FEAB1 /* AppDelegate.swift */,
 				3416835D2189743A001FEAB1 /* ViewController.swift */,
 				3416835F2189743A001FEAB1 /* Main.storyboard */,
+				3416837021898495001FEAB1 /* BusanAirData.swift */,
 				341683622189743C001FEAB1 /* Assets.xcassets */,
 				341683642189743C001FEAB1 /* LaunchScreen.storyboard */,
 				341683672189743C001FEAB1 /* Info.plist */,
 			);
 			path = BusanAirMap;
+			sourceTree = "<group>";
+		};
+		3416836D2189744B001FEAB1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3416836E2189744B001FEAB1 /* MapKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,6 +150,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3416837121898495001FEAB1 /* BusanAirData.swift in Sources */,
 				3416835E2189743A001FEAB1 /* ViewController.swift in Sources */,
 				3416835C2189743A001FEAB1 /* AppDelegate.swift in Sources */,
 			);
