@@ -13,6 +13,9 @@ class ViewController: UIViewController {
       
       @IBOutlet weak var dustMapView: MKMapView!
       
+      var anotation: BusanAirData?
+      var anotations
+      
       let addrs:[String:[String]] = [
             "광복동" : ["중구 광복로 55번길 10", "35.0999630", "129.0304170", "광복동 주민센터", "도시대기", "상업지역"],
             "장림동" : ["사하구 장림로 161번길 2", "35.0829920", "128.9668750", "사하여성회관", "도시대기","공업지역"],
@@ -48,37 +51,56 @@ class ViewController: UIViewController {
             let region = MKCoordinateRegion(center: location, span: span)
             dustMapView.setRegion(region, animated: true)
             
-            let pin = MKPointAnnotation()
-            pin.coordinate = CLLocationCoordinate2D(latitude: 35.153245, longitude: 129.0616769)
-            pin.title = "경남공고"
-            pin.subtitle = "전포동 측정소"
-            dustMapView.addAnnotation(pin)
+            for addr in addrs {
+                  let stationVal = addr.value
+                  let stationName = addr.key
+                  
+                  let address = stationVal[0]
+                  let lat = stationVal[1]
+                  let long = stationVal[2]
+                  let loc = stationVal[3]
+                  
+                  let dLat = Double(lat)
+                  let dLong = Double(long)
+                  
+                  anotation = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: dLat!, longitude: dLong!), title: stationName, subtitle: loc)
+                  
+                  anotations.append(anotation!)
+            }
             
-            self.title = "부산 미세먼지 지도"
+            dustMapView.showAnotations(anotations, animated: true)
             
-            let a = BusanAirData(coordinate: CLLocationCoordinate2D(latitude:35.0999630, longitude: 35.0999630), title: "광복동", subtitle: "")
-            let b = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.0829920, longitude: 128.9668750), title: "장림동", subtitle: "PM10 66ug/m2 보통")
-            let c = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.1460850, longitude: 128.9838270), title: "학장동", subtitle: "PM10 66ug/m2 좋음")
-            let d = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.2158660, longitude: 129.0197570), title: "덕천동", subtitle: "PM10 66ug/m2 보통")
-            let e = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.1841140, longitude: 129.0786090), title: " 연산동", subtitle: "PM10 66ug/m2 보통")
-            let f = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.1303210, longitude: 129.0876850), title: "대연동", subtitle: "PM10 66ug/m2 좋음")
-            let g = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.2752570, longitude: 129.0898810), title: "청룡동", subtitle: "PM10 66ug/m2 보통")
-            let h = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.1530480, longitude: 129.0635640), title: "전포동", subtitle: "PM10 66ug/m2 좋음")
-            let i = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.0597260, longitude: 129.0798400), title: "태종대", subtitle: "PM10 66ug/m2 보통")
-            let j = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.2460560, longitude: 129.2118280), title: "기장읍", subtitle: "PM10 66ug/m2 좋음")
-            let k = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.2114600, longitude: 128.9547110), title: "대저동", subtitle: "PM10 66ug/m2 보통")
-            let l = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.2298390, longitude:  129.0927140), title: "부곡동", subtitle: "PM10 66ug/m2 좋음")
-            let m = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.1527040, longitude:  129.1078090), title: "광안동", subtitle: "구 보건환경연구원 3층")
-            let n = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.2047550, longitude:  129.1043270), title: "명장동", subtitle: "명장동 주민센터 옥상")
-            let o = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.0953270, longitude:  128.8556680), title: "녹산동", subtitle: "(주)삼성전기부산사업장 옥상")
-            let p = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.3255580, longitude:  129.1801400), title: "용수리", subtitle: "정관면 주민센터 2층 옥상")
-            let q = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.1708900, longitude:  129.1742250), title: "좌동", subtitle: "좌1동 주민센터 옥상")
-            let r = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.1293350, longitude:  129.0454230), title: "수정동", subtitle: "동구청사 옥상")
-            let s = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.1173230, longitude:  129.0156410), title: "대신동", subtitle: "부산국민체육센터")
-            let t = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.2056140, longitude:  129.0785020), title: "온천동", subtitle: "동래지하철 앞")
-            let u = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.11194650, longitude:  129.0354560), title: "초량동", subtitle: "윤흥신장군 동상 앞")
-            
-            dustMapView.addAnnotations([a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u])
+//            let pin = MKPointAnnotation()
+//            pin.coordinate = CLLocationCoordinate2D(latitude: 35.153245, longitude: 129.0616769)
+//            pin.title = "경남공고"
+//            pin.subtitle = "전포동 측정소"
+//            dustMapView.addAnnotation(pin)
+//
+//            self.title = "부산 미세먼지 지도"
+//
+//            let a = BusanAirData(coordinate: CLLocationCoordinate2D(latitude:35.0999630, longitude: 35.0999630), title: "광복동", subtitle: "")
+//            let b = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.0829920, longitude: 128.9668750), title: "장림동", subtitle: "PM10 66ug/m2 보통")
+//            let c = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.1460850, longitude: 128.9838270), title: "학장동", subtitle: "PM10 66ug/m2 좋음")
+//            let d = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.2158660, longitude: 129.0197570), title: "덕천동", subtitle: "PM10 66ug/m2 보통")
+//            let e = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.1841140, longitude: 129.0786090), title: " 연산동", subtitle: "PM10 66ug/m2 보통")
+//            let f = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.1303210, longitude: 129.0876850), title: "대연동", subtitle: "PM10 66ug/m2 좋음")
+//            let g = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.2752570, longitude: 129.0898810), title: "청룡동", subtitle: "PM10 66ug/m2 보통")
+//            let h = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.1530480, longitude: 129.0635640), title: "전포동", subtitle: "PM10 66ug/m2 좋음")
+//            let i = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.0597260, longitude: 129.0798400), title: "태종대", subtitle: "PM10 66ug/m2 보통")
+//            let j = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.2460560, longitude: 129.2118280), title: "기장읍", subtitle: "PM10 66ug/m2 좋음")
+//            let k = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.2114600, longitude: 128.9547110), title: "대저동", subtitle: "PM10 66ug/m2 보통")
+//            let l = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.2298390, longitude:  129.0927140), title: "부곡동", subtitle: "PM10 66ug/m2 좋음")
+//            let m = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.1527040, longitude:  129.1078090), title: "광안동", subtitle: "구 보건환경연구원 3층")
+//            let n = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.2047550, longitude:  129.1043270), title: "명장동", subtitle: "명장동 주민센터 옥상")
+//            let o = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.0953270, longitude:  128.8556680), title: "녹산동", subtitle: "(주)삼성전기부산사업장 옥상")
+//            let p = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.3255580, longitude:  129.1801400), title: "용수리", subtitle: "정관면 주민센터 2층 옥상")
+//            let q = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.1708900, longitude:  129.1742250), title: "좌동", subtitle: "좌1동 주민센터 옥상")
+//            let r = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.1293350, longitude:  129.0454230), title: "수정동", subtitle: "동구청사 옥상")
+//            let s = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.1173230, longitude:  129.0156410), title: "대신동", subtitle: "부산국민체육센터")
+//            let t = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.2056140, longitude:  129.0785020), title: "온천동", subtitle: "동래지하철 앞")
+//            let u = BusanAirData(coordinate: CLLocationCoordinate2D(latitude: 35.11194650, longitude:  129.0354560), title: "초량동", subtitle: "윤흥신장군 동상 앞")
+//
+//            dustMapView.addAnnotations([a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u])
       }
 }
 
